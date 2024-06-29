@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Backend",
+    "\\Backend\\MDGIII_WebAPI",
+    "\\Backend\\MDGIII_WebAPI\\Controllers"
   ],
-  "SelectedNode": "\\D:\\UPDS\\Modalidad de grado\\MDIII\\ProyectoEX3SisComprasVentas\\ProyectoModuloIIIUPDS-compra-venta-",
+  "SelectedNode": "\\Backend\\MDGIII_WebAPI\\Controllers\\UsuarioController.cs",
   "PreviewInSolutionExplorer": false
 }
