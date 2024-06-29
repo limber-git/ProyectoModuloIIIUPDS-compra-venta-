@@ -1,5 +1,6 @@
 ﻿using MDGIII_WebAPI.Data;
 using MDGIII_WebAPI.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace MDGIII_WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("Cors")]
     public class ArticuloController : ControllerBase
     {
         private readonly PracticaContext _context;
