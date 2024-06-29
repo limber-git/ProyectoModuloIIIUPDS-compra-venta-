@@ -1,10 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Backend",
-    "\\Backend\\MDGIII_WebAPI",
-    "\\Backend\\MDGIII_WebAPI\\Controllers"
+    ""
   ],
-  "SelectedNode": "\\Backend\\MDGIII_WebAPI\\Controllers\\UsuarioController.cs",
   "PreviewInSolutionExplorer": false
 }

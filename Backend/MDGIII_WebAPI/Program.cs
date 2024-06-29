@@ -2,6 +2,15 @@ using MDGIII_WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Cors", builder =>
+    {
+        builder.WithOrigins("")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
 
 // Add services to the container.
 var db = builder.Configuration.GetConnectionString("conexionBD");
@@ -20,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Cors");
 
 app.UseHttpsRedirection();
 
