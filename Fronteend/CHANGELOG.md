@@ -1,106 +1,69 @@
-# Changelog
+# CHANGELOG.md
 
-## v4.0.0
+## [2.1.0] - 2023-12-08
 
-###### Mar 8, 2024
+- Update Vite to 5
+- Update other dependencies
 
-- Add `TypeScript`
-- Refactor code
-- Replace `date-fns` with `dayjs`
-- Replace `Formik` with `React Hook Form`
-- Replace `Hero Icons` with `Phosphor Icons`
-- Replace `pages` router with `app router`
-- Replace `Yup` with `Zod`
-- Update `eslint` rules
-- Update auth implementation
-- Update dependencies
-- Update design system
+## [2.0.1] - 2023-10-04
 
-## v3.0.0
+- Dependencies update
 
-###### Feb 24, 2023
+## [2.0.0] - 2023-06-01
 
-- Refactor components
-- Replace authentication
-- Update dependencies
-- Update design system
+- Dark version added
 
-## v2.1.0
+## [1.7.4] - 2023-04-11
 
-###### Sep 15, 2022
-
-- Integrate Zalter Authentication
 - Update dependencies
 
-## v2.0.0
+## [1.7.3] - 2023-02-13
 
-###### Nov 8, 2021
+- Further sidebar color improvements
 
-- Migrate to Next.js
-- Update design system
+## [1.7.2] - 2023-02-13
 
-# Change Log
-
-## v1.0.0
-
-###### Aug 7, 2020
-
-- Add `eslint`
-- Add `Feather Icons`
-- Add `Formik` for login/register pages
-- Implement `react-router` v6 routing method
-- Remove `node-sass` dependency
-- Remove extra views
-- Update all components to match the PRO version style
 - Update dependencies
-- Update folder structure to remove folder depth
-- Update theme configuration
+- Improve sidebar icons color logic
 
-## v0.4.0
+## [1.7.0] - 2022-08-30
 
-###### Jul 24, 2019
+- Update sidebar
+- Fix mobile menu issue
 
-- Adjust theme colors
-- Implement `useStyle` hook instead of `withStyles` HOC
-- Implement a custom Route component to wrap views in layouts
-- Remove `services` and `data` folders, each component has its own data
-- Remove unused `.scss` files from `assets` folder
-- Replace `.jsx` with `.js`
-- Replace Class Components with Function Components
-- Replace custom components (Portlet) with Material-UI built-in components
-- Replace dependency `classnames` with `clsx`
+## [1.6.0] - 2022-07-15
+
+- Replace Sass with CSS files
 - Update dependencies
-- Update the layout to match the PRO version
+- Update React to v18
 
-## v0.3.0
+## [1.3.1] - 2022-01-27
 
-###### May 13, 2019
+- Fix tailwind.config.js file
 
-- Implement `jsconfig.json` file and removed `.env` to match React v16.8.6 absolute paths
-- Update chart styles and options
-- Update Dashboard view top widgets styles and structure
-- Update few icons to match @material-ui v4 updates
-- Update React version to 16.8.6 to support React Hooks
-- Update to @material-ui to 4.0.0-beta
+## [1.3.0] - 2022-01-25
 
-## v0.2.0
+- Replace CRA (Create React App) with Vite
+- Remove Craco
+- Update dependencies
 
-###### May 11, 2019
+## [1.2.0] - 2021-12-13
 
-- Add docs for IE11 polyfill
-- Fix `DisplayMode` component size, when used as a flex child it could grow/shrink
-- Fix `ProductCard` component description height
-- Fix `Typography` view responsiveness for small devices
-- Fix charts responsiveness
-- Remove "status" from `ProductCard` component since it was not part of released design
-- Remove `auth` service folder since it won't be implemented for this version
-- Remove `authGuard` since it won't be used in this version
-- Remove unused components from shared components
-- Remove unused scss from assets
-- Update README.md
+- Update Tailwind 3
+- Several improvements
 
-## v0.1.0
+## [1.1.1] - 2021-11-23
 
-###### May 2, 2019
+- Alignment issue## [1.1.1] - 2021-11-23
 
-### Initial commit
+- Alignment issue
+
+## [1.1.0] - 2021-11-15
+
+- Update dependencies
+- Enable Tailwind JIT
+- Add expandable / collapsible sidebar feature
+
+## [1.0.0] - 2021-04-20
+
+First release
