@@ -16,13 +16,13 @@ namespace MDGIII_WebAPI.Models
         [ForeignKey(nameof(idusuario))]
         public Usuario Usuario { get; set; }
         [Required(ErrorMessage = "El tipoComprobante es obligatorio")]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(20)]
         public string tipo_comprobante { get; set; }
         [Required(ErrorMessage = "La serieComprobante es obligatorio")]
-        [StringLength(7, MinimumLength = 3)]
+        [StringLength(7)]
         public string serie_comprobante { get; set; }
         [Required(ErrorMessage = "El numComprobante es obligatorio")]
-        [StringLength(10, MinimumLength = 5)]
+        [StringLength(10)]
         public string num_comprobante { get; set; }
         [Required(ErrorMessage = "La fechaHora es obligatorio")]
         [DataType(DataType.DateTime)]
@@ -34,7 +34,7 @@ namespace MDGIII_WebAPI.Models
         [Column(TypeName = "decimal(11,2)")]
         public decimal total_venta { get; set; }
         [Required(ErrorMessage = "El estado es obligatorio")]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(20)]
         public string estado { get; set; }
     }
 }

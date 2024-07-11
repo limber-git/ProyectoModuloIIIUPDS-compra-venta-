@@ -31,6 +31,10 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+            var usuario = await _context.usuarios.FindAsync(usuarioPermiso.idusuario);
+            var permiso = await _context.permisos.FindAsync(usuarioPermiso.idpermiso);
+            usuarioPermiso.Usuario = usuario;
+            usuarioPermiso.Permiso = permiso;
             return Ok(usuarioPermiso);
         }
         [HttpPost]
@@ -64,6 +68,19 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return BadRequest();
             }
+            var usuario = await _context.usuarios.FindAsync(usuarioPermiso.idusuario);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            var permiso = await _context.permisos.FindAsync(usuarioPermiso.idpermiso);
+            if (permiso == null)
+            {
+                return NotFound();
+            }
+            usuarioPermiso.Usuario = usuario;
+            usuarioPermiso.Permiso = permiso;
+
             _context.Entry(usuarioPermiso).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok(usuarioPermiso);

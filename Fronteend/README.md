@@ -1,80 +1,47 @@
-# Free Tailwind dashboard template
+# Argon Admin Dashboard: React.js, Vite, Material UI - Dark & Light Mode
 
-![Mosaic TailwindCSS template preview](https://github.com/cruip/tailwind-dashboard-template/assets/2683512/d252e308-8869-4b70-bce8-bb44071f8b2e)
+Welcome to Argon Admin Dashboard, a sleek and feature-rich solution built with React.js, Vite, and Material UI, offering both dark and light mode themes. Empower your project with 11 meticulously crafted pages, including data management, user interaction, and insightful chart displays.
 
-**Mosaic Lite** is a responsive dashboard template built on top of TailwindCSS and fully coded in React. It comes with several pre-coded charts (built with Chart.js 3) and widgets, and it's a great starting for anyone who wants to create a user interface for SaaS products, administrator dashboards, modern web apps, and more.
+## Features
 
-Use it for whatever you want, and be sure to reach us out on [Twitter](https://twitter.com/Cruip_com) if you build anything cool/useful with it.
+- **Dashboard Page:** An overview of key metrics and insights.
+- **Manage Team Page:** Efficiently handle team members with MUI DataGrid.
+- **Contacts Information:** Keep track of contacts effortlessly with a DataGrid.
+- **Invoices Balances Page:** Manage invoice balances conveniently using MUI DataGrid.
+- **Profile Form Page:** Create new user profiles seamlessly with Formik and Yup integration.
+- **Calendar Page:** Interactive calendar functionality powered by FullCalendar.
+- **FAQ Page:** Provide answers to common queries using MUI Accordion.
+- **Charts Pages:** Visualize data effectively with various chart types including Bar, Pie, Line, Geography, and Stream.
 
-Created and maintained with ❤️ by [Cruip.com](https://cruip.com/).
+## Demo
 
-## Live demo
+Explore the live demo of Argon Admin Dashboard [here](https://argon-admin-dashboard.web.app/).
 
-Check the live demo here 👉️ [https://mosaic.cruip.com/](https://mosaic.cruip.com/)
+## Get Started
 
-## Mosaic Pro
+1. Clone the repository: `git clone https://github.com/ayoubhayda/react-admin-dashboard.git`
+2. Install dependencies: `npm install` or `yarn install`
+3. Start the development server: `npm run dev` or `yarn dev`
 
-[![Mosaic Pro](https://user-images.githubusercontent.com/2683512/151177026-3d063355-976d-4fdb-a5ed-9c1501c58af2.png)](https://cruip.com/mosaic/)
+## Screenshots
 
-## Design files
+### Dark Mode
 
-If you need the design files, you can download them from Figma's Community 👉 https://bit.ly/3sigqHe
+![Dark Mode](https://res.cloudinary.com/duxego3ja/image/upload/v1709215626/argon-admin-dashboard/b6jztniqlakkglakrp4e.png)
 
-## Table of contents
+### Light Mode
 
-* [Usage](#usage)
-  * [Project setup](#project-setup)
-  * [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
-  * [Compiles and minifies for production](#compiles-and-minifies-for-production)
-  * [Customize configuration](#customize-configuration)
-* [Support notes](#support-notes)            
-* [Credits](#credits)
-* [Terms and License](#terms-and-license)
-* [About Us](#about-us)
-* [Stay in the loop](#stay-in-the-loop)
+![Light Mode](https://res.cloudinary.com/duxego3ja/image/upload/v1709215626/argon-admin-dashboard/qf006k0kwkhrgmefengy.png)
 
-## Usage
 
-This project was bootstrapped with [Vite](https://vitejs.dev/).
+## Contributions and Feedback
 
-### Project setup
-```
-npm install
-```
+We welcome contributions and feedback from the community to enhance and improve Argon Admin Dashboard further. Feel free to submit pull requests or open issues for any suggestions or bug reports.
 
-#### Compiles and hot-reloads for development
-```
-npm run dev
-```
+## Free to Use
 
-#### Compiles and minifies for production
-```
-npm run build
-```
+Argon Admin Dashboard is open-source and completely free to use. Download it, customize it, and streamline your operations with ease.
 
-#### Customize configuration
-See [Configuration Reference](https://vitejs.dev/guide/).
+**Keywords:** React.js, Vite, Material UI, Admin Dashboard, Dark Mode, Light Mode, Data Management, Team Management, Calendar, Charts, Formik, Yup, Open Source.
 
-### Support notes
-We are shipping our templates with a very basic React configuration to let you quickly get into the development process, but we don't discourage you from using any other configuration or framework built on the top of React. So, please note that any request dealing with React (e.g. extra features, customisations, et cetera) is to be considered out of the support scope.
-
-For more information about what support covers, please see our (FAQs)[https://cruip.com/faq/].
-
-## Credits
-
-- [Nucleo](https://nucleoapp.com/)
-
-## Terms and License
-
-- Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
-- Copyright 2020 [Cruip](https://cruip.com/).
-- Use it for personal and commercial projects, but please don’t republish, redistribute, or resell the template.
-- Attribution is not required, although it is really appreciated.
-
-## About Us
-
-We're an Italian developer/designer duo creating high-quality design/code resources for developers, makers, and startups.
-
-## Stay in the loop
-
-If you would like to know when we release new resources, you can follow us on [Twitter](https://twitter.com/Cruip_com), or you can subscribe to our monthly [newsletter](https://cruip.com/#subscribe).
+**Enjoy building awesome projects with Argon Admin Dashboard!**

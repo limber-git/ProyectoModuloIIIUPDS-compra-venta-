@@ -7,10 +7,10 @@ namespace MDGIII_WebAPI.Models
         [Key]
         public int idcategoria { get; set; }
         [Required(ErrorMessage = "El nombre es obligatorio")]
-        [StringLength(50, MinimumLength = 4)]
+        [StringLength(50)]
         public string nombre { get; set; }
         [Required(ErrorMessage = "La descripcion es obligatoria")]
-        [StringLength(256, MinimumLength = 10)]
+        [StringLength(256)]
         public string descripcion { get; set; }
         [Required(ErrorMessage = "La condicion es obligatoria")]
         public bool condicion { get; set; }

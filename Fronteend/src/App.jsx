@@ -1,33 +1,41 @@
-import React, { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useLocation
-} from 'react-router-dom';
+import React, { createContext, useState } from "react";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
+import { Navbar, SideBar } from "./scenes";
+import { Outlet } from "react-router-dom";
 
-import './css/style.css';
-
-import './charts/ChartjsConfig';
-
-// Import pages
-import Dashboard from './pages/Dashboard';
+export const ToggledContext = createContext(null);
 
 function App() {
-
-  const location = useLocation();
-
-  useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
-  }, [location.pathname]); // triggered on route change
-
+  const [theme, colorMode] = useMode();
+  const [toggled, setToggled] = useState(false);
+  const values = { toggled, setToggled };
+  
   return (
-    <>
-      <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-      </Routes>
-    </>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <ToggledContext.Provider value={values}>
+          <Box sx={{ display: "flex", height: "100vh", maxWidth: "100%" }}>
+            <SideBar />
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                maxWidth: "100%",
+              }}
+            >
+              <Navbar />
+              <Box sx={{ overflowY: "auto", flex: 1, maxWidth: "100%" }}>
+                <Outlet />
+              </Box>
+            </Box>
+          </Box>
+        </ToggledContext.Provider>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 
