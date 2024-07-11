@@ -14,9 +14,11 @@ namespace MDGIII_WebAPI.Controllers
     public class IngresoController : ControllerBase
     {
         private readonly PracticaContext _context;
-        public IngresoController(PracticaContext context)
+        private readonly ILogger<IngresoController> _logger;
+        public IngresoController(PracticaContext context, ILogger<IngresoController> logger)
         {
             _context = context;
+            _logger = logger;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ingreso>>> Get()
@@ -32,18 +34,33 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+            var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
+            var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
+            ingreso.Persona = proveedor;
+            ingreso.Usuario = usuario;
+
             return Ok(ingreso);
         }
         [HttpPost]
         public async Task<ActionResult<Ingreso>> Post(Ingreso ingreso)
         {
-            if(ingreso == null)
+            var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
+            if (proveedor == null)
             {
-                return NotFound();
+                return NotFound("Proveedor no encontrado.");
             }
+            var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+            ingreso.Persona = proveedor;
+            ingreso.Usuario = usuario;
+
             _context.ingresos.Add(ingreso);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("Get", new {id = ingreso.idingreso}, ingreso);
+
+            return CreatedAtAction("Get", new { id = ingreso.idingreso }, ingreso);
         }
         [HttpPut("{id}")]
         public async Task<ActionResult<Ingreso>> Put(int id, Ingreso ingreso)
@@ -52,13 +69,23 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return BadRequest();
             }
+
             var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
+            if (proveedor == null)
+            {
+                return NotFound("Proveedor no encontrado.");
+            }
             var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
             ingreso.Persona = proveedor;
             ingreso.Usuario = usuario;
 
             _context.Entry(ingreso).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
             return Ok(ingreso);
         }
         [HttpDelete("{id}")]
@@ -69,7 +96,23 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
-            _context.ingresos.Remove(ingreso);
+
+            var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
+            if (proveedor == null)
+            {
+                return NotFound("Proveedor no encontrado.");
+            }
+            var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+            ingreso.Persona = proveedor;
+            ingreso.Usuario = usuario;
+
+            ingreso.estado = "Anulado";
+
+            _context.Entry(ingreso).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok(ingreso);
         }

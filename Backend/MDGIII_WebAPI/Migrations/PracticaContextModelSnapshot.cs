@@ -48,8 +48,7 @@ namespace MDGIII_WebAPI.Migrations
 
                     b.Property<string>("imagen")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
                         .IsRequired()
