@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import NuevoIngreso from './RegistrarIngreso';
 // import EditIngreso from './EditarIngreso';
-// import DetailIngresoModal from './InsertarDetalleIngreso';
+import DetalleIngreso from './DetalleIngreso';
 import './ListaIngresos.css';
 
 Modal.setAppElement('#root'); // Asegura que el elemento modal esté accesible para herramientas de asistencia
@@ -82,6 +82,7 @@ const ListaIngresos = () => {
   };
 
   const handleDetail = (ingreso) => {
+    console.log(ingreso);
     setDetailIngreso(ingreso); // Establece los detalles del ingreso seleccionado
     setShowDetailIngresoModal(true); // Abre el modal para mostrar los detalles del ingreso
   };
@@ -141,7 +142,6 @@ const ListaIngresos = () => {
               <td>{ingreso.estado}</td>
               <td>
                 <button onClick={() => handleDetail(ingreso)}>Detalle</button>
-                {/* <button onClick={() => { setEditIngreso(ingreso); setShowEditIngresoModal(true); }}>Editar</button> */}
                 <button onClick={() => handleDelete(ingreso.idingreso)}>Eliminar</button>
               </td>
             </tr>
@@ -160,26 +160,14 @@ const ListaIngresos = () => {
       </Modal>
 
       <Modal
-        isOpen={showEditIngresoModal}
-        onRequestClose={() => setShowEditIngresoModal(false)}
-        contentLabel="Modal Editar Ingreso"
-        className="modal-editar-ingreso"
-        overlayClassName="modal-overlay"
-      >
-        {editIngreso && (
-          <EditIngreso ingreso={editIngreso} onUpdate={handleEdit} />
-        )}
-      </Modal>
-
-      <Modal
         isOpen={showDetailIngresoModal}
         onRequestClose={() => setShowDetailIngresoModal(false)}
-        contentLabel="Modal Detalle Ingreso"
-        className="modal-detalle-ingreso"
+        contentLabel="Detalles de Ingreso"
+        className="modal-detalle-Ingreso"
         overlayClassName="modal-overlay"
       >
         {detailIngreso && (
-          <DetailIngresoModal detalleIngreso={detailIngreso} onClose={() => setShowDetailIngresoModal(false)} />
+          <DetalleIngreso ingreso={detailIngreso} onClose={() => setShowDetailIngresoModal(false)} />
         )}
       </Modal>
 
