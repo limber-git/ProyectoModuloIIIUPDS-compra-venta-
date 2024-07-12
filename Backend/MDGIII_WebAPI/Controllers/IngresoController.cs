@@ -5,6 +5,7 @@ using MDGIII_WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.AspNetCore.Cors;
+using MDGIII_WebAPI.Custom;
 
 namespace MDGIII_WebAPI.Controllers
 {
@@ -14,9 +15,11 @@ namespace MDGIII_WebAPI.Controllers
     public class IngresoController : ControllerBase
     {
         private readonly PracticaContext _context;
-        public IngresoController(PracticaContext context)
+        private readonly Utilidades _utilidades;
+        public IngresoController(PracticaContext context, Utilidades utilidades)
         {
             _context = context;
+            _utilidades = utilidades;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ingreso>>> Get()
@@ -32,34 +35,33 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(ingreso);
-        }
-        [HttpPost]
-        public async Task<ActionResult<Ingreso>> Post(Ingreso ingreso)
-        {
-            if(ingreso == null)
-            {
-                return NotFound();
-            }
-            _context.ingresos.Add(ingreso);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("Get", new {id = ingreso.idingreso}, ingreso);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Ingreso>> Put(int id, Ingreso ingreso)
-        {
-            if (id != ingreso.idingreso)
-            {
-                return BadRequest();
-            }
             var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
             var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
             ingreso.Persona = proveedor;
             ingreso.Usuario = usuario;
 
-            _context.Entry(ingreso).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
             return Ok(ingreso);
+        }
+        [HttpPost]
+        public async Task<ActionResult<Ingreso>> Post(Ingreso ingreso)
+        {
+            var proveedor = await _context.personas.FindAsync(ingreso.idproveedor);
+            if (proveedor == null)
+            {
+                return NotFound("Proveedor no encontrado.");
+            }
+            var usuario = await _context.usuarios.FindAsync(ingreso.idusuario);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+            ingreso.Persona = proveedor;
+            ingreso.Usuario = usuario;
+
+            _context.ingresos.Add(ingreso);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("Get", new { id = ingreso.idingreso }, ingreso);
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
@@ -69,9 +71,29 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
-            _context.ingresos.Remove(ingreso);
+
+            ingreso.estado = "Anulado";
+
+            _context.ingresos.Update(ingreso);
             await _context.SaveChangesAsync();
             return Ok(ingreso);
+        }
+        [HttpGet("PorFecha")]
+        public async Task<ActionResult<IEnumerable<Ingreso>>> GetIngresosPorFecha(string periodo, DateTime referencia)
+        {
+            try
+            {
+                var (fechaInicio, fechaFin) = _utilidades.ObtenerFechasPorPeriodo(periodo, referencia);
+                var ingresos = await _context.ingresos
+                    .Where(c => c.fecha_hora >= fechaInicio && c.fecha_hora <= fechaFin)
+                    .ToListAsync();
+
+                return Ok(ingresos);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

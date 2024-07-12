@@ -31,50 +31,49 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(DVenta);
-        }
-        [HttpPost]
-        public async Task<ActionResult<Detalle_Venta>> Post(Detalle_Venta DVenta)
-        {
             var articulo = await _context.articulos.FindAsync(DVenta.idarticulo);
-            if(articulo == null)
-            {
-                return NotFound();
-            }
             var venta = await _context.ventas.FindAsync(DVenta.idventa);
-            if(venta == null)
-            {
-                return NotFound();
-            }
             DVenta.Articulo = articulo;
             DVenta.Venta = venta;
 
-            _context.detalle_ventas.Add(DVenta);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("Get", new {id = DVenta.iddetalle_venta}, DVenta);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Detalle_Venta>> Put(int id, Detalle_Venta DVenta)
-        {
-            if(id != DVenta.iddetalle_venta)
-            {
-                return BadRequest();
-            }
-            _context.Entry(DVenta).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
             return Ok(DVenta);
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<Detalle_Venta>>> Post(List<Detalle_Venta> detalleVentas)
         {
-            var DVenta = await _context.detalle_ventas.FindAsync(id);
-            if(DVenta == null)
+            if (detalleVentas == null || !detalleVentas.Any())
             {
-                return NotFound();
+                return BadRequest("La lista de detalles de ventas está vacía o es nula.");
             }
-            _context.detalle_ventas.Remove(DVenta);
+            foreach (var DVenta in detalleVentas)
+            {
+                var articulo = await _context.articulos.FindAsync(DVenta.idarticulo);
+                if(articulo == null)
+                {
+                    return NotFound();
+                }
+                var venta = await _context.ventas.FindAsync(DVenta.idventa);
+                if(venta == null)
+                {
+                    return NotFound();
+                }
+                DVenta.Articulo = articulo;
+                DVenta.Venta = venta;
+
+                _context.detalle_ventas.Add(DVenta);
+
+                if(articulo.stock >= DVenta.cantidad)
+                {
+                    articulo.stock -= DVenta.cantidad;
+                    _context.articulos.Update(articulo);
+                }
+                else
+                {
+                    return NotFound("La cantidad ingresada excedio los limites del STOCK");
+                }
+            }
             await _context.SaveChangesAsync();
-            return Ok(DVenta);
+            return Ok(detalleVentas);
         }
     }
 }

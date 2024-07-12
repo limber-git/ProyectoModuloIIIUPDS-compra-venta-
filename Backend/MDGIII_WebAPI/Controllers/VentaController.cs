@@ -1,9 +1,12 @@
-﻿using MDGIII_WebAPI.Data;
+﻿using MDGIII_WebAPI.Custom;
+using MDGIII_WebAPI.Data;
 using MDGIII_WebAPI.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 
 namespace MDGIII_WebAPI.Controllers
 {
@@ -13,9 +16,11 @@ namespace MDGIII_WebAPI.Controllers
     public class VentaController : ControllerBase
     {
         private readonly PracticaContext _context;
-        public VentaController(PracticaContext context)
+        private readonly Utilidades _utilidades;
+        public VentaController(PracticaContext context, Utilidades utilidades)
         {
             _context = context;
+            _utilidades = utilidades;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> Get()
@@ -31,6 +36,11 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+            var cliente = await _context.personas.FindAsync(venta.idcliente);
+            var usuario = await _context.usuarios.FindAsync(venta.idusuario);
+            venta.Persona = cliente;
+            venta.Usuario = usuario;
+
             return Ok(venta);
         }
         [HttpPost]
@@ -46,23 +56,13 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+
             venta.Persona = cliente;
             venta.Usuario = usuario;
 
             _context.ventas.Add(venta);
             await _context.SaveChangesAsync();
             return CreatedAtAction("Get", new {id = venta.idventa}, venta);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Venta>> Put(int id, Venta venta)
-        {
-            if(id != venta.idventa)
-            {
-                return BadRequest();
-            }
-            _context.Entry(venta).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return Ok(venta);
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
@@ -72,7 +72,27 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+            venta.estado = "Anulado";
+            _context.ventas.Update(venta);
+            await _context.SaveChangesAsync();
             return Ok(venta);
+        }
+        [HttpGet("PorFecha")]
+        public async Task<ActionResult<IEnumerable<Venta>>> GetVentasPorFecha(string periodo, DateTime referencia)
+        {
+            try
+            {
+                var (fechaInicio, fechaFin) = _utilidades.ObtenerFechasPorPeriodo(periodo, referencia);
+                var ventas = await _context.ventas
+                    .Where(c => c.fecha_hora >= fechaInicio && c.fecha_hora <= fechaFin)
+                    .ToListAsync();
+
+                return Ok(ventas);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MDGIII_WebAPI.Models
         [Key]
         public int idpermiso { get; set; }
         [Required(ErrorMessage = "El nombre es obligatorio")]
-        [StringLength(30, MinimumLength = 5)]
+        [StringLength(30)]
         public string nombre { get; set; }
     }
 }

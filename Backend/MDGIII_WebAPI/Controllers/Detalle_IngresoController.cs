@@ -24,7 +24,7 @@ namespace MDGIII_WebAPI.Controllers
             var DIngreso = await _context.detalle_ingresos.Include(c=>c.Ingreso).Include(x=>x.Articulo).ToListAsync();
             return Ok(DIngreso);
         }
-        [HttpGet("Cors")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Detalle_Ingreso>> Get(int id)
         {
             var DIngreso = await _context.detalle_ingresos.FindAsync(id);
@@ -32,50 +32,70 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(DIngreso);
-        }
-        [HttpPost]
-        public async Task<ActionResult<Detalle_Ingreso>> Post(Detalle_Ingreso DIngreso)
-        {
             var ingreso = await _context.ingresos.FindAsync(DIngreso.idingreso);
-            if(ingreso == null)
-            {
-                return NotFound();
-            }
             var articulo = await _context.articulos.FindAsync(DIngreso.idarticulo);
-            if(articulo == null)
-            {
-                return NotFound();
-            }
             DIngreso.Ingreso = ingreso;
             DIngreso.Articulo = articulo;
 
-            _context.detalle_ingresos.Add(DIngreso);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("Get", new { id = DIngreso.iddetalle_ingreso }, DIngreso);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Detalle_Ingreso>> Put(int id, Detalle_Ingreso DIngreso)
-        {
-            if(id != DIngreso.iddetalle_ingreso)
-            {
-                return BadRequest();
-            }
-            _context.Entry(DIngreso).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
             return Ok(DIngreso);
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Detele(int id)
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<Detalle_Ingreso>>> Post(List<Detalle_Ingreso> detallesIngresos)
         {
-            var DIngreso = await _context.detalle_ingresos.FindAsync(id);
-            if(DIngreso == null)
+            if (detallesIngresos == null || !detallesIngresos.Any())
             {
-                return NotFound();
+                return BadRequest("La lista de detalles de ingresos está vacía o es nula.");
             }
-            _context.detalle_ingresos.Remove(DIngreso);
+
+            foreach (var DIngreso in detallesIngresos)
+            {
+                var ingreso = await _context.ingresos.FindAsync(DIngreso.idingreso);
+                if (ingreso == null)
+                {
+                    return NotFound($"Ingreso con id {DIngreso.idingreso} no encontrado.");
+                }
+
+                var articulo = await _context.articulos.FindAsync(DIngreso.idarticulo);
+                if (articulo == null)
+                {
+                    return NotFound($"Artículo con id {DIngreso.idarticulo} no encontrado.");
+                }
+
+                DIngreso.Ingreso = ingreso;
+                DIngreso.Articulo = articulo;
+                _context.detalle_ingresos.Add(DIngreso);
+
+                //ACTUALIZA EL STOCK DE ARTICULOS
+                articulo.stock += DIngreso.cantidad;
+                _context.articulos.Update(articulo);
+            }
+
             await _context.SaveChangesAsync();
-            return Ok(DIngreso);
+            return Ok(detallesIngresos);
+        }
+        [HttpGet("ultimoprecioventa/{idarticulo}")]
+        public async Task<ActionResult<decimal>> GetUltimoPrecioVenta(int idarticulo)
+        {
+            try
+            {
+                // Obtener el último detalle de ingreso para el artículo específico
+                var ultimoDetalle = await _context.detalle_ingresos
+                    .Where(di => di.idarticulo == idarticulo)
+                    .OrderByDescending(di => di.Ingreso.fecha_hora) // Ordenar por fecha de ingreso descendente para obtener el último registro
+                    .FirstOrDefaultAsync();
+
+                if (ultimoDetalle != null)
+                {
+                    return Ok(ultimoDetalle.precio_venta);
+                }
+
+                // Puedes devolver un valor predeterminado o manejar el caso donde no hay registros
+                return NotFound("No se encontró ningún detalle de ingreso para el artículo especificado.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error al obtener el último precio de venta: {ex.Message}");
+            }
         }
     }
 }

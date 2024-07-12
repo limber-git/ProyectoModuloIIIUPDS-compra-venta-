@@ -55,6 +55,13 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return BadRequest();
             }
+            var categoria = await _context.categorias.FindAsync(articulo.idcategoria);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+            articulo.categorias = categoria;
+
             _context.Entry(articulo).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok(articulo);

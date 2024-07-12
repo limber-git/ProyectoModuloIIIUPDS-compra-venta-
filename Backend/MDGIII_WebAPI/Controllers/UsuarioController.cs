@@ -1,5 +1,7 @@
-﻿using MDGIII_WebAPI.Data;
+﻿using MDGIII_WebAPI.Custom;
+using MDGIII_WebAPI.Data;
 using MDGIII_WebAPI.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +11,15 @@ namespace MDGIII_WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("Cors")]
     public class UsuarioController : ControllerBase
     {
+        private readonly Utilidades _utilidades;
         private readonly PracticaContext _context;
-        public UsuarioController(PracticaContext context)
+        public UsuarioController(PracticaContext context, Utilidades utilidades)
         {
             _context = context;
+            _utilidades = utilidades;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> Get()
@@ -39,6 +44,8 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return NotFound();
             }
+            usuario.clave = _utilidades.encriptarSHA256(usuario.clave);
+
             _context.usuarios.Add(usuario);
             await _context.SaveChangesAsync();
             return CreatedAtAction("Get", new {id = usuario.idusuario}, usuario);
@@ -50,6 +57,8 @@ namespace MDGIII_WebAPI.Controllers
             {
                 return BadRequest();
             }
+            usuario.clave = _utilidades.encriptarSHA256(usuario.clave);
+
             _context.Entry(usuario).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return Ok(usuario);
