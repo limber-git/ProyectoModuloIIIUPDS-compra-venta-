@@ -97,5 +97,19 @@ namespace MDGIII_WebAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error al obtener el último precio de venta: {ex.Message}");
             }
         }
+        [HttpGet("GetByIngresoId/{idIngreso}")]
+        public async Task<ActionResult<IEnumerable<Detalle_Ingreso>>> GetDetalle_IngresoByVentaId(int idIngreso)
+        {
+            var detallesIngreso = await _context.detalle_ingresos
+                .Where(d => d.idingreso == idIngreso).Include(c => c.Articulo).Include(x => x.Ingreso)
+                .ToListAsync();
+
+            if (detallesIngreso == null || detallesIngreso.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(detallesIngreso);
+        }
     }
 }
