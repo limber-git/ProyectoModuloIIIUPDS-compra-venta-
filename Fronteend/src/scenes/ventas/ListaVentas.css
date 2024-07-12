@@ -1,0 +1,45 @@
+.lista-ventas {
+  padding: 20px;
+}
+
+.lista-ventas h1 {
+  margin-bottom: 20px;
+}
+
+.lista-ventas input {
+  padding: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lista-ventas button {
+  padding: 10px 15px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.lista-ventas table {
+  width: 85%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.lista-ventas table th,
+.lista-ventas table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.lista-ventas table th {
+  background: #0e0e0e;
+}
+
+.lista-ventas table tr:nth-child(even) {
+  background: #000000;
+}

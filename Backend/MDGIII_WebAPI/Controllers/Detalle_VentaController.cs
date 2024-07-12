@@ -75,5 +75,20 @@ namespace MDGIII_WebAPI.Controllers
             await _context.SaveChangesAsync();
             return Ok(detalleVentas);
         }
+        // GET: api/Detalle_Venta/GetByVentaId/5
+        [HttpGet("GetByVentaId/{idVenta}")]
+        public async Task<ActionResult<IEnumerable<Detalle_Venta>>> GetDetalle_VentaByVentaId(int idVenta)
+        {
+            var detallesVenta = await _context.detalle_ventas
+                .Where(d => d.idventa == idVenta).Include(c=>c.Articulo).Include(x=>x.Venta)
+                .ToListAsync();
+
+            if (detallesVenta == null || detallesVenta.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(detallesVenta);
+        }
     }
 }
