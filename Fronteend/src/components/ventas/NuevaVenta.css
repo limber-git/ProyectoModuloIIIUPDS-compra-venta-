@@ -1,0 +1,84 @@
+.nueva-venta-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.nueva-venta-content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.nueva-venta-content h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.nueva-venta-content form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.nueva-venta-content label {
+  flex-basis: 45%;
+  margin-bottom: 5px;
+  color:black;
+}
+
+.nueva-venta-content select,
+.nueva-venta-content input {
+  flex-basis: 45%;
+  padding: 6px;
+  margin-top: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.nueva-venta-content button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+  margin: auto;
+}
+
+.nueva-venta-content button:hover {
+  background-color: #45a049;
+}
+
+/* Estilos para los detalles de la venta */
+.nueva-venta-content h3 {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.nueva-venta-content ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.nueva-venta-content li {
+  margin-bottom: 5px;
+  text-align: center;
+}

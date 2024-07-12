@@ -1,0 +1,128 @@
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+
+}
+
+
+table, th, td {
+  border: 1px solid black;
+  
+}
+
+th, td {
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  transition: all 0.2s linear;
+  transition-delay: 0.3s, 0s;
+  opacity: 0.6;
+  transform-origin: center left;
+  transition-property: transform, background-color, opacity;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+
+tbody tr:hover td {
+  background-color: rgb(207, 12, 12);
+  transition-delay: 0s, 0s;
+  opacity: 1;
+  font-size: 2em;
+  transform: scale(1.1);
+}
+
+
+th {
+  background-color: #0b0101;
+  color: white; 
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+table {
+  width: 90%;
+  margin: 0 5%;
+  text-align: left;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  background: hsl(232, 22%, 90%);
+  color: rgba(95, 17, 232, 1);
+}
+
+body > * {
+  margin: auto;
+}
+/* Estilos para Inputs */
+input[type="text"], input[type="number"], input[type="email"], textarea {
+  padding: 0.8em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  max-width: 300px; 
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff; 
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25); 
+}
+
+/* Estilos para Botones */
+button, input[type="submit"] {
+  padding: 0.8em 1.7em;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #007bff; 
+  color: white; 
+}
+
+
+body.dark-mode input[type="text"], 
+body.dark-mode input[type="number"], 
+body.dark-mode input[type="email"], 
+body.dark-mode textarea {
+  background-color: #333; 
+  color: #f0f0f0; 
+  border-color: #555; 
+}
+
+body.dark-mode input[type="text"]:focus, 
+body.dark-mode input[type="number"]:focus, 
+body.dark-mode input[type="email"]:focus, 
+body.dark-mode textarea:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25); 
+}
+
+body.dark-mode button, 
+body.dark-mode input[type="submit"] {
+  background-color: #555; 
+  color: #f0f0f0; 
+}
+
+body.dark-mode button:hover, 
+body.dark-mode input[type="submit"]:hover {
+  background-color: #007bff; 
+  color: white; 
+}
+.insert-form-container{
+  padding: 10px;
+}

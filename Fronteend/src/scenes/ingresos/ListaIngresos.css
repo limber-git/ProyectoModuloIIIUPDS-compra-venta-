@@ -1,0 +1,47 @@
+.lista-ingresos {
+  padding: 20px;
+}
+
+.lista-ingresos h1 {
+  margin-bottom: 20px;
+}
+
+.lista-ingresos input {
+  padding: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lista-ingresos button {
+  padding: 10px 15px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.lista-ingresos table {
+  width: 85%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.lista-ingresos table th,
+.lista-ingresos table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.lista-ingresos table th {
+  background: #0e0e0e;
+  color: white;
+}
+
+.lista-ingresos table tr:nth-child(even) {
+  background: #000000;
+  /* color: white; */
+}

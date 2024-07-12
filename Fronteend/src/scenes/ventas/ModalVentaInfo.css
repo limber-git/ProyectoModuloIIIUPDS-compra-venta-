@@ -1,0 +1,88 @@
+.modal-venta-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-header h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .modal-body {
+    max-height: calc(100% - 70px);
+    overflow-y: auto;
+  }
+  
+  .venta-info-item {
+    margin-bottom: 10px;
+    color: #000;
+  }
+  
+  .venta-info-item label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: black;
+  }
+  
+  .detalle-venta-list {
+    margin-top: 20px;
+  }
+  
+  .detalle-venta {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  
+  .detalle-venta div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .detalle-venta label {
+    font-weight: bold;
+  }
+  
+  .detalle-venta span {
+    flex: 1;
+    text-align: right;
+  }
+  
