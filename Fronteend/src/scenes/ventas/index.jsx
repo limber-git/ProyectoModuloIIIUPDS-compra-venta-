@@ -157,7 +157,18 @@ const ListaVentas = () => {
         <NuevaVenta onInsert={handleInsert} onClose={() => setShowNewVentaModal(false)} />
       </Modal>
 
-      
+      <Modal
+        isOpen={showEditVentaModal}
+        onRequestClose={() => setShowEditVentaModal(false)}
+        contentLabel="Modal Editar Venta"
+        className="modal-editar-venta"
+        overlayClassName="modal-overlay"
+      >
+        {editVenta && (
+          <EditVenta venta={editVenta} onUpdate={handleEdit} />
+        )}
+      </Modal>
+
       {/* Modal para mostrar detalles de la venta */}
       <Modal
         isOpen={showDetailVentaModal}
