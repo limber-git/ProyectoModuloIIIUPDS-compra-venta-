@@ -37,7 +37,7 @@ namespace MDGIII_WebAPI.Custom
                 new Claim("Telefono", usuario.telefono),
                 new Claim("Login", usuario.login),
                 new Claim("id", Convert.ToString(usuario.idusuario)),
-                new Claim("Cargo", usuario.cargo)
+                new Claim("cargo", usuario.cargo)
             };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuracion["Jwt:SecretKey"]!));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
