@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { Box, Button, TextField, Typography, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
@@ -20,9 +19,9 @@ const Login = ({ onLogin }) => {
                 clave: password,
             });
             const { token } = response.data;
-            Cookies.set('token', token);
+            localStorage.setItem('token', token);
             onLogin(token);
-            navigate('/'); // Redirige al dashboard después de iniciar sesión
+            navigate('/');
         } catch (error) {
             console.error('Error during login:', error);
             setError('Failed to login. Please check your username and password.');
@@ -35,7 +34,6 @@ const Login = ({ onLogin }) => {
     };
 
     const handleForgotPassword = () => {
-        // Aquí puedes redirigir al usuario a la página de recuperación de contraseña
         console.log('Redirigir a la página de recuperación de contraseña');
     };
 
